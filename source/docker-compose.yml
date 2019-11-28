@@ -1,0 +1,8 @@
+version: '3.5'
+
+services:
+  source-db-enterprise-com:
+    image: ${DOCKER_REGISTRY}source-db.enterprise.com:${BRANCH:-develop}.${VERSION:-local}
+    container_name: software-db-local.source.com
+    build:
+      context: .

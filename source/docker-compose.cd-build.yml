@@ -1,0 +1,21 @@
+version: '3.5'
+
+services:
+  source-db-enterprise-com:
+    image: ${DOCKER_REGISTRY}source-db.enterprise.com:${BRANCH:-develop}.${VERSION:-local}-build
+    build:
+      target: build
+      args:
+        VERSION: ${VERSION}
+        BRANCH: ${BRANCH}
+    environment:
+      DATABASE: Banco
+      SA_PASSWORD: P@ssw0rd
+      ACCEPT_EULA: Y
+      MSSQL_AGENT_ENABLED: 'true'
+    volumes:
+      - app:/var/release/
+
+volumes:
+  app:
+    name: ${DOCKERCOMPOSE_PUBLISH_VOLUME_NAME:-app-extract-app}

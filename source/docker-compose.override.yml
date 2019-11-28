@@ -1,0 +1,13 @@
+version: '3.5'
+
+services:
+  source-db-enterprise-com:
+    build:
+      target: build
+    environment:
+      # RUN_TEST: ${RUN_TEST:-false}
+      # RUN_PROJECT: ${RUN_PROJECT:-true}
+      DATABASE: Banco
+      SA_PASSWORD: P@ssw0rd
+      MSSQL_AGENT_ENABLED: 'true'
+      ACCEPT_EULA: 'Y'
