@@ -39,6 +39,18 @@ export RUN_SONARQUBE="true"
 export CONFIGURATION="Debug"
 
 
+echo ""
+echo "-----------------------------------------------------------------------"
+echo "Run docker-compose.cd-debug.yml"
+docker-compose -f "docker-compose.yml" -f "docker-compose.cd-debug.yml" build
+#docker-compose -f "docker-compose.yml" -f "docker-compose.cd-debug.yml" push
+if [ $RUN_PROJECT == 'true' ]; then
+    docker-compose -f "docker-compose.yml" -f "docker-compose.cd-debug.yml" up
+fi
+echo "-----------------------------------------------------------------------"
+
+
+
 echo "-----------------------------------------------------------------------"
 echo "Run docker-compose.cd-tests.yml"
 docker-compose -f "docker-compose.yml" -f "docker-compose.cd-tests.yml" build
@@ -61,9 +73,6 @@ export DOCKERCOMPOSE_PUBLISH_CONTAINER_NAME="container-publish"
 export DOCKERCOMPOSE_PUBLISH_APP_PATH="/var/release/"
 
 docker-compose -f "docker-compose.yml" -f "docker-compose.cd-build.yml" build
-if [ $RUN_PROJECT == 'true' ]; then
-    docker-compose -f "docker-compose.yml" -f "docker-compose.cd-build.yml" up --abort-on-container-exit
-fi
 #docker-compose -f "docker-compose.yml" -f "docker-compose.cd-build.yml" push
 echo "Extraindo o artefatos"
 docker create --name $DOCKERCOMPOSE_PUBLISH_CONTAINER_NAME -v $DOCKERCOMPOSE_PUBLISH_VOLUME_NAME:$DOCKERCOMPOSE_PUBLISH_APP_PATH busybox
